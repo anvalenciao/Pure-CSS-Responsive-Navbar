@@ -1,0 +1,247 @@
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Jost', sans-serif;
+  text-shadow: 0 0.05rem 0.1rem rgb(0 0 0 / 50%);
+  color: #fff;
+  background-color: #212529;
+}
+
+.container {
+  width: 100%;
+  padding: 0 .75rem;
+  margin: 0 auto;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+#toggle-overlay:checked~#overlay {
+  opacity: 1;
+  z-index: 0;
+}
+
+nav label {
+  display: flex;
+  flex-direction: column;
+  width: 50px;
+  cursor: pointer;
+  position: relative;
+}
+
+nav label span {
+  background: #fff;
+  border-radius: 10px;
+  height: 5px;
+  margin: 5px 0;
+  width: 100%;
+  transition: .8s cubic-bezier(0.68, -0.6, 0.32, 1.6), background-color .8s ease-in-out, transform .8s ease-in-out;
+}
+
+#toggle-overlay:checked ~ nav label span {
+  background-color: #4b4b4b;
+}
+
+#toggle-overlay:checked~nav label span:nth-of-type(1) {
+  transform-origin: bottom;
+  transform: rotatez(45deg) translate(10px, 10px);
+}
+
+#toggle-overlay:checked~nav label span:nth-of-type(2) {
+  transform-origin: top;
+  transform: rotatez(-45deg);
+}
+
+#toggle-overlay:checked~nav label span:nth-of-type(3) {
+  transform-origin: bottom;
+  transform: translate(0px, -16px) rotatez(45deg);
+}
+
+main {
+  animation: fadeInOpacity 1.6s ease-in-out 0s 1 normal forwards;
+  display: block;
+}
+
+#toggle-overlay:checked~main {
+  display: none;
+}
+
+#overlay svg line {
+  transition: stroke-width 0.8s ease-in-out;
+  stroke-width: 0;
+}
+
+#toggle-overlay:checked~#overlay svg line {
+  stroke-width: 150%;
+}
+
+nav {
+  min-height: 6rem;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li.toggle {
+  align-self: flex-end;
+  display: initial;
+  position: absolute;
+  cursor: pointer;
+  top: 1rem;
+}
+
+nav ul li.item {
+  margin-left: 0;
+  visibility: hidden;
+  display: none;
+}
+
+nav ul li.logo {
+  min-height: 4rem;
+  top: 1rem;
+  position: relative;
+}
+
+nav ul li.logo a {
+  color: #fff;
+  font-size: 2rem;
+  transition: color 1.6s ease 0s;
+  text-decoration: none;
+}
+
+nav ul li ul a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  padding: 1rem 0;
+  margin: 0 1rem;
+  position: relative;
+  transition: 0.5s ease;
+}
+
+nav ul li ul a::before{
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #000;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#toggle-overlay:checked~nav ul a {
+  text-decoration: none;
+  color: #000;
+}
+
+#toggle-overlay:checked~nav ul li ul {
+  height: calc(100vh * 0.88);
+  justify-content: center;
+  align-items: center;
+}
+
+#toggle-overlay:checked~nav ul li.item {
+  animation: slideShow 0.8s ease-in-out 0.1s 1 normal forwards;
+  display: block;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes slideShow {
+  0% {
+    opacity: 0;
+    transform: translateY(-10vw);
+  }
+  
+  100% {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  nav ul li ul a:hover {
+    color: #5E5E5B !important;
+    text-shadow: initial;
+  }
+
+  nav ul li ul a:hover::before{
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* Small devices (portrait phones, 576px and up) */
+@media (min-width: 576px) {
+  .container {
+      max-width: 540px;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media (min-width: 768px) {
+  .container {
+      max-width: 720px;
+  }
+  nav ul {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  nav ul a {
+    color: #fff !important;
+  }
+  nav ul li ul {
+    height: auto !important;
+  }
+  nav ul li.item {
+    visibility: visible;  
+    display: block;
+  }
+  nav ul li.logo {
+    margin-right: auto;
+  }
+  nav ul li.toggle {
+    display: none;
+  }
+  #overlay svg line {
+    stroke-width: 0 !important;
+  }
+  nav ul li ul a::before {
+    background: #fff !important;
+  }
+  main {
+    animation: fadeInOpacity 1.6s ease-in-out 0s 1 normal forwards;
+    display: block !important;
+  }
+}
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .container {
+      max-width: 960px;
+  }
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .container {
+      max-width: 1140px;
+  }
+}
